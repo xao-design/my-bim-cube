@@ -1,13 +1,15 @@
 // state.js
 
 // 1. The actual data holding our absolute truth
+// state.js
 const data = {
     height: 2.0,
-    baysX: 2,       // Number of spaces in the X direction
-    bayWidthX: 3.0, // How wide each space is (meters)
-    baysZ: 1,       // Number of spaces in the Z direction
-    bayWidthZ: 4.0  // How deep each space is (meters)
+    baysX: 2,
+    bayWidthX: 3.0, // We will control this now!
+    baysZ: 1,
+    bayWidthZ: 4.0  // And this!
 };
+
 
 // 2. A list of people listening to the loudspeaker
 const listeners = [];
