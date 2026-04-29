@@ -9,11 +9,18 @@
     <div id="app">
         <div id="ui">
             <h2>IfcConfigurator</h2>
-            <div class="control-group">
+            <div class="controls">
                 <label>Height: <span id="val">2.0</span>m</label>
-                <input type="range" id="heightSlider" min="0.5" max="10" step="0.1" value="2">
+                <input type="range" id="heightSlider" min="0.5" max="10" step="0.1" value="2.0">
+
+                <label>Bays X: <span id="valX">2</span></label>
+                <input type="range" id="baysXSlider" min="1" max="5" step="1" value="2">
+
+                <label>Bays Z: <span id="valZ">1</span></label>
+                <input type="range" id="baysZSlider" min="1" max="5" step="1" value="1">
+                
+                <button id="exportBtn">Export IFC</button>
             </div>
-            <button id="exportBtn">Export IFC</button>
         </div>
         <div id="viewer"></div>
     </div>
