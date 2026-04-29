@@ -1,41 +1,51 @@
 // main.js
-import './scene.js'; 
-import './product.js';
-import { state } from './state.js'; 
-import { downloadIFC } from './exporter.js';
+import './src/scene/gridRenderer.js';
+import './src/scene/scene.js'; 
+import { state, subscribe } from './src/core/state.js'; 
+import { calculateCustomGrid } from './src/math/gridCalculator.js';
 
-// --- HEIGHT SLIDER ---
+// --- HEIGHT ---
 const heightSlider = document.getElementById('heightSlider');
-const valDisplay = document.getElementById('val');
-
+const valHeight = document.getElementById('valHeight');
 heightSlider.addEventListener('input', (e) => {
-    const h = parseFloat(e.target.value);
-    if (valDisplay) valDisplay.innerText = h.toFixed(1);
-    state.height = h; // Tell state!
+    state.height = parseFloat(e.target.value);
+    if (valHeight) valHeight.innerText = state.height.toFixed(1);
 });
 
-// --- BAYS X SLIDER ---
-const baysXSlider = document.getElementById('baysXSlider');
-const valXDisplay = document.getElementById('valX');
-
-baysXSlider.addEventListener('input', (e) => {
-    const val = parseInt(e.target.value);
-    if (valXDisplay) valXDisplay.innerText = val;
-    state.baysX = val; // Tell state!
+// --- TOTAL WIDTH (X) ---
+const widthSlider = document.getElementById('widthSlider');
+const valWidth = document.getElementById('valWidth');
+widthSlider.addEventListener('input', (e) => {
+    state.widthX = parseFloat(e.target.value);
+    if (valWidth) valWidth.innerText = state.widthX.toFixed(1);
 });
 
-// --- BAYS Z SLIDER ---
-const baysZSlider = document.getElementById('baysZSlider');
-const valZDisplay = document.getElementById('valZ');
-
-baysZSlider.addEventListener('input', (e) => {
-    const val = parseInt(e.target.value);
-    if (valZDisplay) valZDisplay.innerText = val;
-    state.baysZ = val; // Tell state!
+// --- TOTAL DEPTH (Y) ---
+const depthSlider = document.getElementById('depthSlider');
+const valDepth = document.getElementById('valDepth');
+depthSlider.addEventListener('input', (e) => {
+    state.depthY = parseFloat(e.target.value);
+    if (valDepth) valDepth.innerText = state.depthY.toFixed(1);
 });
 
-// --- EXPORT BUTTON ---
-const exportBtn = document.getElementById('exportBtn');
-exportBtn.addEventListener('click', () => {
-    downloadIFC();
+
+// ---------------------------------------------------------
+// 🧪 TEMPORARY DIAGNOSTIC TEST (The "Console Math Checker")
+// ---------------------------------------------------------
+// We subscribe to the State. Whenever a slider moves, we run the math and log it.
+subscribe((property, value) => {
+    // Only recalculate if Width or Depth changed (ignore height for the grid)
+    if (property === 'widthX' || property === 'depthY') {
+        const gridPoints = calculateCustomGrid(state.widthX, state.depthY);
+        
+        console.clear(); // Keep the console clean
+        console.log(`📐 GRID RECALCULATED!`);
+        console.log(`Total X: ${state.widthX}m | Total Y: ${state.depthY}m`);
+        console.log(`Total Intersections Generated: ${gridPoints.length}`);
+        console.table(gridPoints); // .table() creates a beautiful spreadsheet in the console!
+    }
 });
+
+// Run it once on load so we can see the default 12x6 grid
+const initialGrid = calculateCustomGrid(state.widthX, state.depthY);
+console.table(initialGrid);

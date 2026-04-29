@@ -1,5 +1,5 @@
 // exporter.js
-import { state } from './state.js';
+import { state } from './src/core/state.js';
 import * as WebIFC from 'web-ifc';
 
 // 1. Boot up the C++ WebAssembly Engine

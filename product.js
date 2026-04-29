@@ -1,7 +1,7 @@
 // product.js
 import * as THREE from 'three';
-import { scene } from './scene.js';
-import { subscribe, state } from './state.js';
+import { scene } from './src/scene/scene.js';
+import { subscribe, state } from './src/core/state.js';
 import { getGridIntersections } from './grid.js'; // Hire the Surveyor
 
 // 1. Create a "Folder" (Group) to hold all our generated parts

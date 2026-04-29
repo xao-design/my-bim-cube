@@ -1,5 +1,5 @@
 // grid.js
-import { state } from './state.js';
+import { state } from './src/core/state.js';
 
 // This function translates abstract bays into absolute 3D coordinates
 export function getGridIntersections() {
